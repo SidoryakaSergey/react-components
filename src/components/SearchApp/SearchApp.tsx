@@ -53,16 +53,22 @@ class SearchApp extends React.Component<SearchAppProps, SearchAppState> {
   constructor(props: SearchAppProps) {
     super(props);
     this.state = {
-      searchTerm: "",
+      searchTerm: localStorage.getItem("savedSearchRick") || "",
       searchResults: [],
       isLoading: false,
       hasError: false,
     };
   }
 
+  componentDidMount() {
+    if (this.state.searchTerm) {
+      this.handleSearch();
+    }
+  }
+
   handleSearch = async () => {
     try {
-      this.setState({ isLoading: true, hasError: false }); // Сбрасываем ошибку перед новым запросом
+      this.setState({ isLoading: true, hasError: false });
 
       const { searchTerm } = this.state;
       let data;
@@ -107,6 +113,11 @@ class SearchApp extends React.Component<SearchAppProps, SearchAppState> {
     this.setState({ hasError: true });
   };
 
+  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ searchTerm: e.target.value });
+    localStorage.setItem("savedSearchRick", e.target.value);
+  };
+
   render() {
     const { searchResults, hasError } = this.state;
 
@@ -118,7 +129,7 @@ class SearchApp extends React.Component<SearchAppProps, SearchAppState> {
               <input
                 type="text"
                 value={this.state.searchTerm}
-                onChange={(e) => this.setState({ searchTerm: e.target.value })}
+                onChange={this.handleInputChange}
                 placeholder="Enter your search term"
               />
               <button className="search-btn" onClick={this.handleSearch}>
