@@ -5,7 +5,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>Приложение по поиску персонажей</h1>
+        <h1>The Rick and Morty API</h1>
         <SearchApp />
       </div>
     );

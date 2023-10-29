@@ -1,0 +1,33 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.results-body {
+  margin: 10px 0;
+}
+
+.search-btn {
+  margin-right: 10px;
+  background-color: chartreuse;
+}
+
+.error-btn {
+  background-color: brown;
+  color: aliceblue;
+  padding: 2px 5px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px gray solid;
+  margin-bottom: 5px;
+}
+
+.name {
+  font-weight: bold;
+  text-align: center;
+}
