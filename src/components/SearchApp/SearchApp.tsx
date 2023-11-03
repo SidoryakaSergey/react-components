@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from 'react';
 
 interface SearchAppState {
   searchTerm: string;
@@ -15,45 +15,11 @@ interface Character {
 
 interface SearchAppProps {}
 
-interface ErrorBoundaryProps {
-  children: ReactNode;
-}
-
-class ErrorBoundary extends React.Component<
-  ErrorBoundaryProps,
-  { hasError: boolean }
-> {
-  state = { hasError: false };
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  handleButtonClick = () => {
-    this.setState({ hasError: true });
-  };
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div>
-          Something went wrong. There is an error in the component.
-          <button onClick={this.handleButtonClick}>
-            Trigger Error Manually
-          </button>
-        </div>
-      );
-    }
-
-    return this.props.children;
-  }
-}
-
 class SearchApp extends React.Component<SearchAppProps, SearchAppState> {
   constructor(props: SearchAppProps) {
     super(props);
     this.state = {
-      searchTerm: localStorage.getItem("savedSearchRick") || "",
+      searchTerm: localStorage.getItem('savedSearchRick') || '',
       searchResults: [],
       isLoading: false,
       hasError: false,
@@ -74,7 +40,7 @@ class SearchApp extends React.Component<SearchAppProps, SearchAppState> {
       let data;
       if (searchTerm) {
         const response = await fetch(
-          `https://rickandmortyapi.com/api/character/?name=${searchTerm}`,
+          `https://rickandmortyapi.com/api/character/?name=${searchTerm}`
         );
         data = await response.json();
 
@@ -83,13 +49,13 @@ class SearchApp extends React.Component<SearchAppProps, SearchAppState> {
             id: result.id,
             name: result.name,
             image: result.image,
-          }),
+          })
         );
 
         this.setState({ searchResults, isLoading: false });
       } else {
         const response = await fetch(
-          "https://rickandmortyapi.com/api/character",
+          'https://rickandmortyapi.com/api/character'
         );
         data = await response.json();
 
@@ -98,13 +64,13 @@ class SearchApp extends React.Component<SearchAppProps, SearchAppState> {
             id: result.id,
             name: result.name,
             image: result.image,
-          }),
+          })
         );
 
         this.setState({ searchResults, isLoading: false });
       }
     } catch (error) {
-      console.error("Error while receiving data", error);
+      console.error('Error while receiving data', error);
       this.setState({ hasError: true, isLoading: false });
     }
   };
@@ -115,47 +81,45 @@ class SearchApp extends React.Component<SearchAppProps, SearchAppState> {
 
   handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ searchTerm: e.target.value });
-    localStorage.setItem("savedSearchRick", e.target.value);
+    localStorage.setItem('savedSearchRick', e.target.value);
   };
 
   render() {
     const { searchResults, hasError } = this.state;
 
     return (
-      <ErrorBoundary>
-        <div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div>
-              <input
-                type="text"
-                value={this.state.searchTerm}
-                onChange={this.handleInputChange}
-                placeholder="Enter your search term"
-              />
-              <button className="search-btn" onClick={this.handleSearch}>
-                Search
-              </button>
-              <button className="error-btn" onClick={this.triggerError}>
-                Trigger Error
-              </button>
-            </div>
-            <div className="results-body">
-              {hasError ? (
-                <div>
-                  Something went wrong. There is an error in the component.
+      <div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div>
+            <input
+              type="text"
+              value={this.state.searchTerm}
+              onChange={this.handleInputChange}
+              placeholder="Enter your search term"
+            />
+            <button className="search-btn" onClick={this.handleSearch}>
+              Search
+            </button>
+            <button className="error-btn" onClick={this.triggerError}>
+              Trigger Error
+            </button>
+          </div>
+          <div className="results-body">
+            {hasError ? (
+              <div>
+                Something went wrong. There is an error in the component.
+              </div>
+            ) : (
+              searchResults.map((result: Character) => (
+                <div className="card" key={result.id}>
+                  <img src={result.image} alt={result.name} />
+                  <p className="name">{result.name}</p>
                 </div>
-              ) : (
-                searchResults.map((result: Character) => (
-                  <div className="card" key={result.id}>
-                    <img src={result.image} alt={result.name} />
-                    <p className="name">{result.name}</p>
-                  </div>
-                ))
-              )}
-            </div>
+              ))
+            )}
           </div>
         </div>
-      </ErrorBoundary>
+      </div>
     );
   }
 }
