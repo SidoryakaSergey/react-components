@@ -1,15 +1,21 @@
-import React from 'react';
-import { Header } from './components/Header/Header';
+import { Routes, Route } from 'react-router-dom';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import Layout from './components/Layout/Layout';
+import SearchResultsPage from './pages/SearchResultsPage/SearchResultsPage';
+import CardsPage from './pages/CardsPage/CardsPage';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <h1>The Rick and Morty API</h1>
-        <Header />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<SearchResultsPage />} />
+          <Route path="/:id" element={<CardsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </>
+  );
 }
 
 export default App;

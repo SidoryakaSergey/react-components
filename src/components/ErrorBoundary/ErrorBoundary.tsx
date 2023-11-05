@@ -21,12 +21,7 @@ class ErrorBoundary extends React.Component<
   render() {
     if (this.state.hasError) {
       return (
-        <div>
-          Something went wrong. There is an error in the component.
-          <button onClick={this.handleButtonClick}>
-            Trigger Error Manually
-          </button>
-        </div>
+        <div>Something went wrong. There is an error in the component.</div>
       );
     }
 

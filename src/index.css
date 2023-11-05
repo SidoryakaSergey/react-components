@@ -23,11 +23,44 @@
 .card {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   border: 1px gray solid;
-  margin-bottom: 5px;
+  border-radius: 10px;
+  margin: 5px;
+  width: 110px;
 }
 
 .name {
+  display: flex;
+  flex-wrap: wrap;
   font-weight: bold;
   text-align: center;
+}
+
+.list-beers {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.img-beer {
+  width: 100px;
+}
+
+.pagination {
+  display: flex;
+  gap: 5px;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-page {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.item {
+  width: 20px;
 }
