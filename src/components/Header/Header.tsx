@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 export const Header = () => {
@@ -15,6 +15,18 @@ export const Header = () => {
   const page_size = searchParams.get('page_size');
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const defaultBeerName = localStorage.getItem('savedSearchBeers') || '';
+    const defaultPage = 1;
+    const defaultPageSize = '10';
+
+    if (!beer_name || !pageParam || !page_size) {
+      navigate(
+        `?beer_name=${defaultBeerName}&page=${defaultPage}&page_size=${defaultPageSize}`
+      );
+    }
+  }, [beer_name, pageParam, page_size, navigate]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
