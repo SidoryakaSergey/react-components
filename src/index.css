@@ -5,6 +5,31 @@
   align-items: center;
 }
 
+.wrapp {
+  display: flex;
+}
+
+.big-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 30%;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(127, 255, 212, 0.596);
+}
+
+.close-btn {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  background-color: rgb(236, 223, 213);
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+
 .results-body {
   margin: 10px 0;
 }
@@ -29,6 +54,14 @@
   border-radius: 10px;
   margin: 5px;
   width: 110px;
+  height: 500px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.card:hover {
+  border: 2px rgb(150, 13, 13) solid;
 }
 
 .name {

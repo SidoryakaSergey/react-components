@@ -57,6 +57,10 @@ const SearchResultsPage = () => {
                 key={el.id}
                 nameBeer={el.name}
                 imageURL={el.image_url}
+                id={el.id}
+                page={page}
+                page_size={page_size}
+                searchBeer={beer_name}
               />
             );
           })}

@@ -7,7 +7,6 @@ function Layout() {
     <div>
       <Header />
       <Outlet />
-      <div>footer</div>
     </div>
   );
 }
